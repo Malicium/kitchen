@@ -1,11 +1,5 @@
 package recipes
 
-import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-)
-
 type Recipe struct {
 	ID           string       `json:"id"`
 	Ingredients  []Ingredient `json:"ingredients"`
@@ -44,17 +38,4 @@ var recipes = []Recipe{
 			},
 		},
 	},
-}
-
-func getRecipes(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, recipes)
-}
-
-func main() {
-	router := gin.Default()
-	router.SetTrustedProxies([]string{"192.168.1.2"})
-
-	router.GET("/recipes", getRecipes)
-
-	router.Run("localhost:8080")
 }

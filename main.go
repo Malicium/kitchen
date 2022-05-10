@@ -1,15 +1,23 @@
 package main
 
 import (
-		"os"
-    "os/exec"
-    "fmt"
-    "bytes"
+	"os"
+	"os/exec"
+	"fmt"
+	"bytes"
 )
 
+
 func main() {
-	cmd := os.Getenv("CMD")
-	input := os.Getenv("INPUT")
+	// router := gin.Default()
+	// router.SetTrustedProxies([]string{"192.168.1.2"})
+
+	// router.GET("/recipes", getRecipes)
+	// router.Run("localhost:8080")
+	RunCode("node", "hello.js")
+}
+
+func RunCode(cmd string, input string) {
 	process := exec.Command(cmd, input)
 	stdin, err := process.StdinPipe()
 	if err != nil {
@@ -26,4 +34,4 @@ func main() {
 
 	process.Wait()
 	fmt.Println(buf)
-}
+} 
