@@ -8,8 +8,9 @@ import (
 )
 
 func main() {
-	cmd := "node"
-	process := exec.Command(cmd, "hello.js")
+	cmd := os.Getenv("CMD")
+	input := os.Getenv("INPUT")
+	process := exec.Command(cmd, input)
 	stdin, err := process.StdinPipe()
 	if err != nil {
 		fmt.Println(err)
@@ -24,5 +25,5 @@ func main() {
 	}
 
 	process.Wait()
-	fmt.Println("Output:", buf)
+	fmt.Println(buf)
 }
