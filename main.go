@@ -11,7 +11,6 @@ import (
 func main() {
 	router := gin.Default()
 	router.SetTrustedProxies([]string{"192.168.1.2"})
-	fmt.Println(router)
 	router.GET("/code", func(c *gin.Context) {
 		RunCode("node", "hello.js")
 	})
@@ -30,9 +29,8 @@ func RunCode(cmd string, input string) {
 	process.Stderr = os.Stderr
 
 	if err = process.Start(); err != nil {
-		fmt.Println("An error occured: ", err)
+		fmt.Println(err)
 	}
-
 	process.Wait()
 	fmt.Println(buf)
 } 
