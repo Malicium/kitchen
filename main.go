@@ -5,16 +5,17 @@ import (
 	"os/exec"
 	"fmt"
 	"bytes"
+	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
-	// router := gin.Default()
-	// router.SetTrustedProxies([]string{"192.168.1.2"})
-
-	// router.GET("/recipes", getRecipes)
-	// router.Run("localhost:8080")
-	RunCode("node", "hello.js")
+	router := gin.Default()
+	router.SetTrustedProxies([]string{"192.168.1.2"})
+	fmt.Println(router)
+	router.GET("/code", func(c *gin.Context) {
+		RunCode("node", "hello.js")
+	})
+	router.Run("localhost:8080")
 }
 
 func RunCode(cmd string, input string) {
