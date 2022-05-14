@@ -22,6 +22,6 @@ func RunCode(c *gin.Context) {
 	mode := c.Param("mode")
 	file := c.Param("file")
 
-	output := lib.RunCode(mode, file)
-	c.String(http.StatusOK, output.String())
+	result := lib.RunCode(mode, file)
+	c.String(http.StatusOK, result.String())
 }
