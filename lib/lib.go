@@ -1,13 +1,13 @@
 package lib
 
 import (
-	"fmt"
 	"bytes"
+	"fmt"
 	"os"
 	"os/exec"
 )
 
-func RunCode(cmd string, input string) {
+func RunCode(cmd string, input string) *bytes.Buffer {
 	process := exec.Command(cmd, input)
 	stdin, err := process.StdinPipe()
 	if err != nil {
@@ -22,5 +22,5 @@ func RunCode(cmd string, input string) {
 		fmt.Println(err)
 	}
 	process.Wait()
-	fmt.Println(buf)
-} 
+	return buf
+}
