@@ -2,7 +2,10 @@ module kitchen
 
 go 1.18
 
-require github.com/gin-gonic/gin v1.7.7
+require (
+	github.com/gin-gonic/gin v1.7.7
+	github.com/robertkrimen/otto v0.0.0-20211024170158-b87d35c0b86f
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -20,5 +23,6 @@ require (
 	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
+	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

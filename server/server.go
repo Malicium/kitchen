@@ -10,7 +10,9 @@ import (
 func Start() {
 	router := gin.Default()
 	router.SetTrustedProxies([]string{"192.168.1.2"})
-	router.GET("/run-code", RunCodeHandler)
+
+	router.POST("/run-code", RunCodeHandler)
+
 	router.Run("localhost:8080")
 }
 
@@ -18,6 +20,9 @@ func RunCodeHandler(c *gin.Context) {
 	cmd := c.Request.FormValue("cmd")
 	input := c.Request.FormValue("input")
 
-	result := lib.RunCode(cmd, input)
+	result, err := lib.RunCode(cmd, input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err)
+	}
 	c.String(http.StatusOK, result.String())
 }

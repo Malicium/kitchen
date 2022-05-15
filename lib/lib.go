@@ -1,26 +1,14 @@
 package lib
 
 import (
-	"bytes"
-	"fmt"
-	"os"
-	"os/exec"
+	"github.com/robertkrimen/otto"
 )
 
-func RunCode(cmd string, input string) *bytes.Buffer {
-	process := exec.Command(cmd, input)
-	stdin, err := process.StdinPipe()
+func RunCode(cmd string, input string) (*otto.Value, error) {
+	vm := otto.New()
+	value, err := vm.Eval(input)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
-	defer stdin.Close()
-	buf := new(bytes.Buffer)
-	process.Stdout = buf
-	process.Stderr = os.Stderr
-
-	if err = process.Start(); err != nil {
-		fmt.Println(err)
-	}
-	process.Wait()
-	return buf
+	return &value, err
 }
