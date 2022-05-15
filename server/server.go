@@ -5,22 +5,24 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	c "kitchen/config"
 )
+
+var config = c.Get()
 
 func Start() {
 	router := gin.Default()
-	router.SetTrustedProxies([]string{"192.168.1.2"})
+	router.SetTrustedProxies([]string{config.TrustedProxy})
 
 	router.POST("/run-code", RunCodeHandler)
 
-	router.Run("localhost:8080")
+	router.Run(config.HttpAddress)
 }
 
 func RunCodeHandler(c *gin.Context) {
-	cmd := c.Request.FormValue("cmd")
 	input := c.Request.FormValue("input")
+	result, err := lib.RunCode(input)
 
-	result, err := lib.RunCode(cmd, input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	}
