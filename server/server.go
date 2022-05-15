@@ -10,18 +10,14 @@ import (
 func Start() {
 	router := gin.Default()
 	router.SetTrustedProxies([]string{"192.168.1.2"})
-	GetRoutes(router)
+	router.GET("/run-code", RunCodeHandler)
 	router.Run("localhost:8080")
 }
 
-func GetRoutes(router *gin.Engine) {
-	router.GET("/run-code/:mode/:file", RunCode)
-}
+func RunCodeHandler(c *gin.Context) {
+	cmd := c.Request.FormValue("cmd")
+	input := c.Request.FormValue("input")
 
-func RunCode(c *gin.Context) {
-	mode := c.Param("mode")
-	file := c.Param("file")
-
-	result := lib.RunCode(mode, file)
+	result := lib.RunCode(cmd, input)
 	c.String(http.StatusOK, result.String())
 }
