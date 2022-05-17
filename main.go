@@ -1,7 +1,7 @@
 package main
 
 import (
-	server "kitchen/server"
+	server "kitchen/service"
 )
 
 func main() {
